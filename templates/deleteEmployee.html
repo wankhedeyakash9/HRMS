@@ -1,0 +1,21 @@
+{% extends "home.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+
+</head>
+<body>
+{% block Heading %} Terminate employee{% endblock %}
+{% block reusedTemplate %}
+    <br><br><br><br>
+    <form action="{{ url_for("deleted_employee") }}" method="post" style="position: relative;left: 300px">
+
+        <label> Enter employee id: </label>
+        <input type="text" name= "empid" value="">
+        <input type="submit" name="submit" value="submit">
+    </form>
+{% endblock %}
+</body>
+</html>

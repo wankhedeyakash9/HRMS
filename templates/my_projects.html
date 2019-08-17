@@ -1,0 +1,41 @@
+{% extends 'home.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block Heading %} My Projects{% endblock %}
+{% block reusedTemplate %}
+<br><br><br><br>
+    <div>
+    <br><br>
+    <table  class="Table" border="2px">
+    <thead style="background: #3498DD; color: #ffffff">
+        <th>Project ID </th>
+        <th >Name</th>
+        <th>Status</th>
+        <th>Submission date</th>
+        <th>Client</th>
+
+    </thead>
+{% if records %}
+    {% for record in records %}
+        <tr>
+            {% if record %}
+            {% for field in record %}
+                <td>{{ field }}</td>
+            {% endfor %}
+            {% endif %}
+        </tr>
+    {% endfor %}
+    {% endif %}
+
+    </tr>
+    </table>
+    </div>
+
+{% endblock %}
+</body>
+</html>

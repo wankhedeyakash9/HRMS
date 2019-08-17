@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% extends 'home.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block Heading %}
+Dependents
+{% endblock %}
+{% block reusedTemplate %}
+<br><br><br><br>
+    <table  class="Table" border="2px" style="border-collapse: collapse;text-align: center; width: 70%; font-size: 15px;">
+    <thead style="background: #3498DD; color: #ffffff">
+        <th>Name </th>
+        <th >Relation</th>
+        <th > Age</th>
+        <th>Gender</th>
+    </thead>
+{% if records %}
+    {% for record in records %}
+        <tr>
+            {% if record %}
+            {% for field in record %}
+                <td>{{ field }}</td>
+            {% endfor %}
+            {% endif %}
+        </tr>
+    {% endfor %}
+    {% endif %}
+
+    </tr>
+    </table>
+{% endblock %}
+</body>
+</html>

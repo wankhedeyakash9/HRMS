@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+{% extends 'home.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block Heading %}
+Company Structure
+{% endblock %}
+{% block reusedTemplate %}
+
+    <br>
+    <br>
+
+    {% if id_password_post_name[2] == 'Admin' %}
+        <button  class="cpBtn" onclick=
+                'let x = document.getElementById("depform");
+                 let y = document.getElementById("structureTable");
+                 let z = document.getElementById("space");
+                if(x.style.display === "inline-block")
+                {    x.style.display = "none";
+                     y.style.display = "block";
+                     z.style.display = "none";
+                }
+                 else
+                {    x.style.display = "inline-block";
+                     y.style.display = "none";
+                     z.style.display = "inline";
+
+                }'
+                 style="position: absolute;right: 100px;">&plus; New Department</button>
+    {% endif %}
+
+    <span id="space" style="display:none"><br><br></span>
+
+    <form  method="post" action="url_for("add_department")" id="depform" style="display: none;
+                padding: 20px; position:relative; left:300px; font-size: medium;
+                width:70%;background: #dddddd; border-radius:5px">
+        <button style="color: red; position: absolute; right: 10px; top: 1px"
+                onclick='let x = document.getElementById("depform");
+                         let y = document.getElementById("structureTable")
+                         x.style.display = "none";
+                         y.style.display = "block"; '
+        ><b>&cross;</b></button>
+            <table>
+                <tr>
+                    <td> Department Name:</td>
+                    <td><input type="text" name="dep_name" value="" required/></td>
+                </tr>
+                <tr>
+                    <td>Address:</td>
+                    <td><input type="text" name="address" placeholder="50 characters only" style=" height:40px; width:200px" required></td>
+                </tr>
+                <tr>
+                    <td>CITY :</td>
+                    <td><input type="text" name="city" required></td>
+                </tr>
+                <tr>
+                    <td>STATE :</td>
+                    <td><input type="text" name="state" required></td>
+                </tr>
+                <tr>
+                    <td>Contact No. :</td>
+                    <td><input type="text" name="contact" value="" pattern="[0-9]{10}"
+                           oninvalid="this.setCustomValidity('Please enter a valid mobile number')" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Manager ID:</td>
+                    <td>
+                        <select name="mgr_id"  >
+                            <option value="None">None</option>
+                            {%for e in employees%}
+                            <option value="{{e[0]}}">{{e[0]}}</option>
+                            {%endfor%}
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <br>
+        <p><input type="submit" value=Enter></p>
+</form>
+
+    <br>
+    <br>
+    <div id="structureTable">
+    <table  class="Table" border="2px">
+        <thead style="background: #3498DD; color: #ffffff">
+
+                    <th>Department Name</th>
+                    <th>Address</th>
+                    <th>Contact</th>
+
+        </thead>
+            {% if records %}
+            {% for record in records %}
+                <tr>
+                    {% if record %}
+                    {% for value in record %}
+                        <td>{{ value }}</td>
+
+                    {% endfor %}
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            {% endif %}
+    </table>
+    </div>
+{% endblock %}
+</body>
+</html>

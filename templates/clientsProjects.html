@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+{% extends 'home.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+{% block Heading%}
+Clients/Projects
+{% endblock %}
+{% block reusedTemplate %}
+    <br><br><br>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for m in messages %}
+        <p style=" font-size: medium;font-weight:bold;position: relative; left: 40%; color: #007000">{{ m }}</p>
+        {% endfor %}
+         {% endif %}
+     {% endwith %}
+
+    <span style="position:absolute; right: 110px">
+        <button class="cpBtn" id="addEmpbtn" onclick="fun4()" style="display:none;"> &plus; Assign Project</button>
+        <button class="cpBtn" onclick="fun7()"> &plus;New Project</button>
+        <button class="cpBtn" onclick="fun3()"> &plus;New Client</button>
+        <button class="cpBtn"  onclick="fun1()">Projects</button>
+        <button class="cpBtn" onclick="fun2()">Clients</button>
+    </span>
+    <br><br>
+
+    <div id="table_block">
+
+    </div>
+    <script>
+        function fun1() {
+            document.getElementById("addEmpbtn").style.display = "inline";
+            document.getElementById("table_block").innerHTML = "    <table  class=\"Table\"  id=\"Table\" border=\"2px\">\n"+
+                "<thead id=\"Projects\" style=\"background: #3498DD; color: #ffffff\">\n" +
+                "                    {% for h in pheading %}\n"+
+                    "                    <th> {{ h }} </th>\n"+
+                    "                    {% endfor %}\n" +
+                "            </thead>\n" +
+                "                {% if projectrecords %}\n"+
+                    "                    {% for record in projectrecords %}\n"+
+                        "                        <tr>\n"+
+                        "                            {% if record %}\n"+
+                            "                            {% for field in record %}\n"+
+                                "                                <td>{{ field }}</td>\n"+
+                                "                            {% endfor %}\n"+
+                            "                            {% endif %}\n"+
+                        "                        </tr>\n"+
+                        "                    {% endfor %}\n"+
+                    "                {% endif %}\n"+
+                    "    </table>\n";
+        }
+        function fun2() {
+            document.getElementById("addEmpbtn").style.display = "none";
+
+            document.getElementById("table_block").innerHTML = "    <table  class=\"Table\"  id=\"Table\" border=\"2px\">\n"+
+                "<thead id=\"Projects\" style=\"background: #3498DD; color: #ffffff\">\n" +
+                "                    {% for h in cheading %}\n"+
+                    "                    <th> {{ h }} </th>\n"+
+                    "                    {% endfor %}\n" +
+                "            </thead>\n" +
+                "                {% if clientrecords %}\n"+
+                    "                    {% for record in clientrecords %}\n"+
+                        "                        <tr>\n"+
+                        "                            {% if record %}\n"+
+                            "                            {% for field in record %}\n"+
+                                "                                <td>{{ field }}</td>\n"+
+                                "                            {% endfor %}\n"+
+                            "                            {% endif %}\n"+
+                        "                        </tr>\n"+
+                        "                    {% endfor %}\n"+
+                    "                {% endif %}\n"+
+                "    </table>\n";
+
+        }
+        function fun3() {
+            document.getElementById("addEmpbtn").style.display = "none";
+            document.getElementById("table_block").innerHTML = "<form action=\"{{ url_for("add_client") }}\" method = \"post\" style = \" position:relative; left:300px; font-size: medium; width:70%;background-colour: #dddddd; border-radius:5px\">\n" +
+                "    <table >\n" +
+                "     <tr>\n" +
+                "         <td>Client Name:</td>\n" +
+                "         <td><input type=\"text\" name=\"Cname\" value=\"\" required></td>\n" +
+                "     </tr>\n" +
+                "     <tr>\n" +
+                "         <td>Contact Number:</td>\n" +
+                "         <td><input type=\"text\" value=\"\" name=\"contact\" pattern=\"[0-9]{10}\" placeholder=\"Contact1\" required\n" +
+                "                    oninvalid=\"this.setCustomValidity('Please enter a valid mobile number')\"></td>\n" +
+                "     </tr>\n" +
+                "     <tr>\n" +
+                "         <td>Email address:</td>\n" +
+                "         <td><input type=\"email\" value=\"\" name=\"email\" placeholder=\"username@example.com\" required></td>\n" +
+                "     </tr>\n" +
+                "     <tr>\n" +
+                "         <td> Client Address</td>\n" +
+                "         <td><input type=\"text\" name=\"address\" placeholder=\"50 characters only\" style=\" height:40px; width:200px\" required></td>\n" +
+                "\n" +
+                "    </tr>\n" +
+                "    <tr>\n" +
+                "        <td> city</td>\n" +
+                "        <td><input type=\"text\" name=\"city\"  required></td>\n" +
+                "    </tr>\n" +
+                "    <tr>\n" +
+                "        <td> State</td>\n" +
+                "        <td><input type=\"text\" name=\"state\" required></td>\n" +
+                "    </tr>\n" +
+                "    <tr>\n" +
+                "        <td>Contract date</td>\n" +
+                "        <td><input type=\"date\" min=\"2000-01-01\" name=\"Cdate\"></td>\n" +
+                "    </tr>\n" +
+                "</table>\n" +
+                "<input type=\"submit\" name=\"submit\" value=\"submit\" >"+
+                "</form>";
+
+
+        }
+        function fun7(){
+            document.getElementById("addEmpbtn").style.display = "none";
+            document.getElementById("table_block").innerHTML = "<form action=\"{{ url_for("add_project") }}\" method = \"post\" style = \" position:relative; left:300px; font-size: medium; width:70%;background-colour: #dddddd; border-radius:5px\">\n" +
+                "    <table>\n" +
+                "     <tr>\n" +
+                "         <td>Project Name:</td>\n" +
+                "         <td><input type=\"text\" name=\"Pname\" value=\"\" required></td>\n" +
+                "     </tr>\n" +
+                "     <tr>\n" +
+                "        <td> SelectClient</td>\n" +
+                "        <td>\n" +
+                "            <select name=\"Cname\">\n" +
+                                    "<option value=\"None\">None</option>\n" +
+
+                "   {% if clientrecords %}\n"+
+                    "                    {% for record in clienttrecords %}\n"+
+                        "                    {% if record %}\n"+
+                                                "<option value=\"{{ record[0] }}\">{{ record[1] }}</option>\n" +
+                            "                {% endif %}\n"+
+                        "                {% endfor %}\n"+
+                "   {% endif %}"+
+                "\n" +
+                "        </td>\n" +
+                "    </tr>\n" +
+                "    <tr>\n" +
+                "        <td>Submission date</td>\n" +
+                "        <td><input type=\"date\" min=\"2000-01-01\" name=\"Pdate\"></td>\n" +
+                "    </tr>\n" +
+                "</table>\n" +
+                "<input type=\"submit\" name=\"submit\" value=\"submit\" >"+
+                "</form>";
+        }
+        function fun4() {
+            document.getElementById("addEmpbtn").style.display = "none";
+            document.getElementById("table_block").innerHTML =
+                "<form action=\"{{ url_for("assignProject") }}\" method=\"post\"  style = \" display: inline-block; position:relative; left:300px; font-size: medium;\n"+
+                "      background: #dddddd; border-radius:5px; padding: 50px\">\n"+
+                "    <table>\n"+
+                "    <tr>\n"+
+                "                <td><label for=\"EmployeeId\">Employee Id</label></td>\n"+
+                "                <td><select name=\"EmployeeId\" style = \" width: 100px;\">\n"+
+                "                    {% for i in employees %}    \n"+
+                "                        <option value=\"{{ i[0] }}\">{{ i[0] }}</option>\n"+
+                "                    {% endfor %}\n"+
+                "                </select> </td>\n"+
+                "    </tr>\n"+
+                "    <tr>\n"+
+                "                <td><label for=\"ProjectId\">Project Id</label></td>\n"+
+                "                <td>\n"+
+                "                    <select name=\"ProjectId\" style = \" width: 100px;\">\n"+
+                "                    {% for i in projects %}    \n"+
+                "                        <option value=\"{{ i[0] }}\">{{ i[0] }}</option>\n"+
+                "                    {% endfor %}\n"+
+                "                    </select> \n"+
+                "                </td>\n"+
+                "    </tr>\n"+
+                "    </table>"+
+                "    <input type=\"submit\" name=\"submit\" value=\"submit\">\n"+
+                "</form>\n";
+        }
+
+    </script>
+    
+
+{% endblock %}
+</body>
+</html>

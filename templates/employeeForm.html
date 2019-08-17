@@ -1,0 +1,109 @@
+{% extends 'home.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body >
+{% block Heading %} Employee form{% endblock %}
+{% block reusedTemplate %}
+<br><br><br>
+<form action="{{ url_for("addEmployee") }}" method="post"  style="position: relative; left: 300px; width:70%;
+              background-colour: #dddddd; border-radius: 5px;font-size: medium" >
+        <table>
+            <tr>
+                <td>First name</td>
+                <td><input type="text" name="fname" value=""  placeholder="Required" required></td>
+            </tr>
+            <tr>
+                <td>Last name</td>
+                <td><input type="text" name="lname" value="" placeholder="Required" required></td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td>
+                    <input type="radio" name="gender" value="M"  required>Male &nbsp;&nbsp;
+                    <input type="radio" name="gender" value="F"  required>Female
+                </td>
+
+            </tr>
+            <tr>
+                <td>Date of Birth</td>
+                <td><input type="date" value="" name="DoB" min="1970-12-31" max="2019-12-31"  required></td>
+
+            </tr>
+             <tr>
+                <td>Contact Nos. </td>
+                <td>
+                    <input type="text" value="" name="contact1" pattern="[0-9]{10}" placeholder="Contact1" required
+                           oninvalid="this.setCustomValidity('Please enter a valid mobile number')">
+                    &nbsp;&nbsp;
+                    <input type="text" value="" name="contact2" pattern="[0-9]{10}" placeholder="Contact2" required
+                           oninvalid="this.setCustomValidity('Please enter a valid mobile number')">
+                </td>
+
+            </tr>
+            <tr>
+                <td>E-mail address </td>
+                <td><input type="email" value="" name="email" placeholder="username@example.com" required></td>
+
+            </tr>
+            <tr>
+                <td> Residence Address</td>
+                <td><input type="text" name="address" placeholder="50 characters only" style=" height:40px; width:200px" required></td>
+
+            </tr>
+            <tr>
+                <td> city</td>
+                <td><input type="text" name="city"  required></td>
+
+            </tr>
+            <tr>
+                <td> State</td>
+                <td><input type="text" name="state" required></td>
+            </tr>
+
+            <tr>
+                <td>Date of joining</td>
+                <td><input type="date" max="2019-12-31" min="2019-01-01" name="DoJ"   required></td>
+
+            </tr>
+            <tr>
+                <td>Post</td>
+                <td><select name="post">
+                    <option value="worker">worker</option>
+                    <option value="supervisor">supervisor</option>
+                </select> </td>
+
+            </tr>
+            <tr>
+                <td>Department</td>
+                <td><select name="dep" required>
+                    <option  value="None">None</option>
+                    {% if  departments%}
+                    {% for d in departments %}
+                    <option  value="">{{ d[0] }}</option>
+                    {% endfor %}
+                    {% endif %}
+                </select> </td>
+
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="text" name="password"  required></td>
+
+            </tr>
+            <tr>
+                <td>Confirm Password</td>
+                <td><input type="text" name="password"  required></td>
+
+            </tr>
+        </table>
+        <input type="submit" name="submit" value="submit" >
+    </form>
+{% endblock %}
+</body>
+<style>
+     body form table tr{ height: 40px; padding: 20px;}
+</style>

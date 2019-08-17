@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Title</title>
+</head>
+<body>
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+{% block body %}
+{% if not session['logged_in'] %}
+
+
+    <form action="/login" method="POST">
+        <div class="login">
+            <div class="login-screen">
+                <div class="app-title">
+                    <h1>HRMS Login</h1>
+                </div>
+            <div class="login-form">
+                <div class="control-group">
+                    <input type="text" class="login-field" value="" placeholder="your employee id " name="username">
+                    <label class="login-field-icon fui-user" for="login-name"></label></div>
+                <div class="control-group">
+                    <input type="password" class="login-field" value="" placeholder="password" name="password">
+                    <label class="login-field-icon fui-lock" for="login-pass"></label></div>
+                    <input type="submit" value="Log in" class="btn btn-primary btn-large btn-block">
+
+                </div>
+            </div>
+        </div>
+    </form>
+    {% endif %}
+{% endblock %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for m in messages %}
+        <p style=" font-size: medium;font-weight:bold;position: relative; left: 40%; color: #700000">&#x26A0{{ m }}</p>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+</body>
+</html>
+

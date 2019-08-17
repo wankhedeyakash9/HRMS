@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Home</title>
+    </head>
+
+
+
+    <link rel="stylesheet" href="/static/homeStyle.css" type="text/css">
+    <body>
+
+            <div id="heading" style="color: #fff">
+                  <a href={{ url_for('home') }}><button id="homeBtn" style="color: #fff; font-size: 20px; " type="button" name="button">Home</button></a>
+
+                        HRMS
+                        <abbr title="Signed in as '{{id_password_post_name[0]}}'">
+                            <button class="userIcon" type="button" name="button" disabled></button>
+                        </abbr>
+                        <a id = "logout" href= {{ url_for("logout") }} >Log out</a>
+
+            </div>
+
+            <div id = "sideBtn" >
+            {% for i in side_Btn %}
+                <a href= {{ url_for((i|replace(' ','_'))|lower) }}><button class="sideButton"   type="button" name="{{ i.replace(' ','_') }}Button">{{ i }}</button></a><br>
+            {% endfor %}
+            </div>
+
+            <img id= "profilePic" border="2px" alt=' Profile image' src="{{ url_for('static',filename=get_img_name())}}" datatype="image/jpg">
+
+
+            <div  id ="pageHeading" style="color: #fff"  >
+                {% block Heading %} Dashboard {% endblock %}<h5 style="display : inline; position: absolute; right: 10px; top:40px">{{id_password_post_name[3]}}</h5><h6 style=" display: inline; position: absolute; right: 10px" >({{id_password_post_name[2]}})</h6>
+            </div>
+
+            {% block reusedTemplate %}
+                <div class="slideShow-container">
+
+                    <div class="mySlides fade">
+                        <div class="numbertext">1 / 4</div>
+                        <img src="http://www.fccsingapore.com/sites/default/files/public/typo3_Events_image_5f5b0c72-1fa3-6bd8-7c66-5b14e0dfc70f_66.jpg" style="width:100%">
+
+                    </div>
+
+                    <div class="mySlides fade">
+                        <div class="numbertext">2 / 4</div>
+                        <img src="http://hrssolutions.com/wp-content/uploads/in-todays-business-environment-technology-is-lowering-the-importance_16001079_31736_1_14073730_500-500x270.jpg" style="width:100%">
+
+                    </div>
+
+                    <div class="mySlides fade">
+                        <div class="numbertext">3 / 4</div>
+                        <img src="data:image/jpeg;base64,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" style="width:100%">
+
+                    </div>
+
+                    <div class="mySlides fade">
+                        <div class="numbertext">3 / 4</div>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY1lkQj72GQqJXw8eYFTnSe_8gq3TmymLiJlDGC8p1M4Zg7S_mTQ" style="width:100%">
+
+                    </div>
+
+            </div>
+            <div style="text-align:center; margin-left:200px">
+
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+            </div>
+
+            <script>
+                let slideIndex = 0;
+                showSlides();
+
+                function showSlides() {
+
+                      let  i;
+                      let slides = document.getElementsByClassName("mySlides");
+                      let dots = document.getElementsByClassName("dot");
+                      for (i = 0; i < slides.length; i++)
+                      {
+                          slides[i].style.display = "none";
+                      }
+                      slideIndex++;
+                      if (slideIndex > slides.length) {slideIndex = 1}
+                      for (i = 0; i < dots.length; i++)
+                      {
+                          dots[i].className = dots[i].className.replace(" active", "");
+                      }
+                      slides[slideIndex-1].style.display = "block";
+                      dots[slideIndex-1].className += " active";
+                      setTimeout(showSlides, 3000); // Change image every 3 seconds
+                    }
+            </script>
+
+                <br>
+                        <span id="buttons">
+
+                            {% for i in buttons %}
+
+                                <span class="button"><a href= {{ url_for(i|replace(" ","_")|lower) }} >{{i}}</a></span><p style="display: inline">&nbsp;&nbsp;</p><span style="border: solid 1px #7e7e7e; border-radius: 1px"></span>
+                            {% endfor %}
+                        </span>
+
+            {% endblock %}
+
+    </body>
+
+</html>

@@ -1,0 +1,71 @@
+{% extends 'home.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block Heading %} My Profile{% endblock %}
+{% block reusedTemplate %}
+    <br><br><br><br><br>
+    <div class = 'info'>
+     {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for m in messages %}
+        <p style=" font-size: medium;font-weight:bold; color:{% if "didn't" in m %} #700000 {% else %} #007000{% endif %} ">{% if "didn't" in m %}&cross;{% else %}&check;{% endif %}{{ m }}</p>
+        {% endfor %}
+         {% endif %}
+     {% endwith %}
+
+
+
+    <form action="{{ url_for("upload_img") }}" method="post" enctype="multipart/form-data" style="display: inline-block">
+     <input type="file" accept="image/jpeg" datatype="image" name="uploadedImage" value="" required >
+    <button class="cpBtn" type="submit" style="background-color: #feab00">Upload image</button>
+    </form>
+    <button class="cpBtn" style="background-color: darkred" onclick='let x = document.getElementById("change_pass")
+        if(x.style.display === "inline-block")
+            x.style.display = "none";
+        else
+            x.style.display = "inline-block";'> Change password</button>
+    <br>
+    <div id ="change_pass" style="display: none;" >
+        <br>
+        <form  action="{{ url_for("changePass") }}" method="post"  style = "  padding: 20px; position:relative; left:300px; font-size: medium;
+                width:100%;background: #dddddd; border-radius:5px">
+            <table>
+                <tr>
+                    <td><label for="Password">Enter new password :</label></td>
+                    <td><input type="password" value="" name="Password" required></td>
+                </tr>
+
+                <tr>
+                    <td><label for="ConfirmPassword">Confirm password</label></td>
+                    <td><input type="password" value="" name="ConfirmPassword" required></td>
+                </tr>
+            </table>
+                <input type="submit" name="submit" value="submit" style="margin-left: 40%" >
+
+        </form>
+    </div>
+
+
+    <form action = "{{ url_for("updateProfile") }}" method="post">
+    <table>
+    {% if values %}
+    {% for i in range(labels|length) %}
+        <tr style="height:40px; padding:20px;">
+            <td><label><b>{{ labels[i] }} :</b></label></td>
+            <td ><input type="text" style="  color: #000000;" name = "{{ labels[i] }}" placeholder="{{ values[i] }}" {% if labels[i] in ['Employee Id', 'First Name', 'Last Name', 'Date of birth', 'Gender', 'Post', 'Status', 'Department','Supervisor']%} readonly {% endif %} ></td>
+        </tr>
+    {% endfor %}
+    {% endif %}
+    </table>
+    <input type="submit" name="submit" value="submit">
+    </form>
+    </div>
+
+{% endblock %}
+</body>
+</html>

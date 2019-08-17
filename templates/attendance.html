@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% extends 'home.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block Heading %} Attendance {% endblock %}
+{% block reusedTemplate %}
+    <br><br>
+    <div>
+    <form action="{{url_for("punchin_or_punchout")}}" method="post">
+    <button id="punch" type="submit"  value="PunchIn" name="punch" onclick=' document.getElementById(punch).value = "{{btn_tag}}";'
+            style="position: relative; left: 1150px;">{{ btn_tag }} </button>
+    </form>
+    <br>
+    <table  class="Table" border="2px">
+    <thead style="background: #3498DD; color: #ffffff">
+        <th>Date </th>
+        <th >Time-In</th>
+        <th > Time-Out</th>
+        <th>Overtime</th>
+    </thead>
+{% if records %}
+    {% for record in records %}
+        <tr>
+            {% if record %}
+            {% for field in record %}
+                <td>{{ field }}</td>
+            {% endfor %}
+            {% endif %}
+        </tr>
+    {% endfor %}
+    {% endif %}
+    </table>
+    </div>
+
+{% endblock %}
+
+</body>
+<script>
+    function fun5() {
+
+    }
+</script>
+    </html>
